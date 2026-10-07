@@ -1,0 +1,14 @@
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/bin/Debug/net10.0/ccse-task-1
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/bin/Debug/net10.0/ccse-task-1.deps.json
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/bin/Debug/net10.0/ccse-task-1.runtimeconfig.json
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/bin/Debug/net10.0/ccse-task-1.dll
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/bin/Debug/net10.0/ccse-task-1.pdb
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/obj/Debug/net10.0/ccse-task-1.GeneratedMSBuildEditorConfig.editorconfig
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/obj/Debug/net10.0/ccse-task-1.AssemblyInfoInputs.cache
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/obj/Debug/net10.0/ccse-task-1.AssemblyInfo.cs
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/obj/Debug/net10.0/ccse-task-1.csproj.CoreCompileInputs.cache
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/obj/Debug/net10.0/ccse-task-1.dll
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/obj/Debug/net10.0/refint/ccse-task-1.dll
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/obj/Debug/net10.0/ccse-task-1.pdb
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/obj/Debug/net10.0/ccse-task-1.genruntimeconfig.cache
+/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/obj/Debug/net10.0/ref/ccse-task-1.dll
