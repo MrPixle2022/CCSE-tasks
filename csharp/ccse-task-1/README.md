@@ -9,11 +9,3 @@ we are told to create 3 csharp programs that does the following:
 so out of the kindness of my heart i give you the solutions
 
 all hail the ice cube
-
-install this project as a zip file or using git:
-
-```bash
-git clone 
-```
-
-and run the project as you like
