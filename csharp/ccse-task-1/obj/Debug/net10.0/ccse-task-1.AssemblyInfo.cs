@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ccse-task-1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa885c6bf3f31f98c7615b89d5ebf4dd6efbfa3e")]
 [assembly: System.Reflection.AssemblyProductAttribute("ccse-task-1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ccse-task-1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -7,5 +7,3 @@ we are told to create 3 csharp programs that does the following:
 - read name, address, phone, fax, website and manager, the manager having name & surname + phone number
 
 so out of the kindness of my heart i give you the solutions
-
-all hail the ice cube

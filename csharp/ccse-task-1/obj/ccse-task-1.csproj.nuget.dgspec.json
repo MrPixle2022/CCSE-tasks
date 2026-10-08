@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/ccse-task-1.csproj": {}
+    "/home/p1x3l/Desktop/programming/projects/CCSE-tasks/csharp/ccse-task-1/ccse-task-1.csproj": {}
   },
   "projects": {
-    "/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/ccse-task-1.csproj": {
+    "/home/p1x3l/Desktop/programming/projects/CCSE-tasks/csharp/ccse-task-1/ccse-task-1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/ccse-task-1.csproj",
+        "projectUniqueName": "/home/p1x3l/Desktop/programming/projects/CCSE-tasks/csharp/ccse-task-1/ccse-task-1.csproj",
         "projectName": "ccse-task-1",
-        "projectPath": "/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/ccse-task-1.csproj",
+        "projectPath": "/home/p1x3l/Desktop/programming/projects/CCSE-tasks/csharp/ccse-task-1/ccse-task-1.csproj",
         "packagesPath": "/home/p1x3l/.nuget/packages/",
-        "outputPath": "/home/p1x3l/Desktop/programming/projects/csharp/ccse-task-1/obj/",
+        "outputPath": "/home/p1x3l/Desktop/programming/projects/CCSE-tasks/csharp/ccse-task-1/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/p1x3l/.nuget/NuGet/NuGet.Config"
