@@ -1,21 +1,9 @@
-# CCSE csharp task 1
+# CCSED tasks
 
-we are told to create 3 csharp programs that does the following:
+this is a repo where i upload solution to all programming related tasks
 
-- read 3 integers form user and print the sum
-- read a radius and print circumference and area
-- read name, address, phone, fax, website and manager, the manager having name & surname + phone number
-
-so out of the kindness of my heart i give you the solutions
-<<<<<<< HEAD
-
-all hail the ice cube
-
-install this project as a zip file or using git:
+you can install this repo locally using git:
 
 ```bash
-git clone https://github.com/MrPixle2022/CCSE-tasks
+git clone https://github.com/MrPixle2022/CCSE-tasks/
 ```
-
-and run the project as you like
-
