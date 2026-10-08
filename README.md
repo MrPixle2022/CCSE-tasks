@@ -14,9 +14,8 @@ all hail the ice cube
 install this project as a zip file or using git:
 
 ```bash
-git clone 
+git clone https://github.com/MrPixle2022/CCSE-tasks
 ```
 
 and run the project as you like
-=======
->>>>>>> 7de9fa6 (201)
+
