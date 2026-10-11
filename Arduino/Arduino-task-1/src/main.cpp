@@ -18,7 +18,11 @@ enum Status {
   OFF,
 };
 
-bool isPressed(uint8_t btnPin){
+bool isPressed(int btnPin){
+  Serial.print("btn @pin  ");
+  Serial.print(btnPin);
+  Serial.print(" is checked: ");
+  Serial.println(digitalRead(btnPin) == LOW? "pressed" : "nope");
   return digitalRead(btnPin) == LOW;
 }
 
@@ -36,6 +40,8 @@ void setup(){
   pinMode(BTN_2, INPUT_PULLUP);
   pinMode(BTN_3, INPUT_PULLUP);
   pinMode(BTN_4, INPUT_PULLUP);
+
+  Serial.begin(9600);
 }
 
 void loop(){
@@ -94,4 +100,6 @@ void loop(){
       digitalWrite(Y_LED, LOW);
       digitalWrite(G_LED, LOW);
   }
+
+  delay(100);
 }
