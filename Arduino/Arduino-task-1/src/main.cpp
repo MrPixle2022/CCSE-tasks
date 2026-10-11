@@ -1,5 +1,5 @@
-#include <Arduino.h>
-
+// #include<stdio.h>
+#include<Arduino.h>
 #define R_LED 2
 #define Y_LED 3
 #define G_LED 4
@@ -9,6 +9,7 @@
 #define BTN_3 8
 #define BTN_4 9
 
+#define LED_DELAY 100
 
 enum Status {
   ACCESS,
@@ -18,12 +19,14 @@ enum Status {
   OFF,
 };
 
-bool isPressed(int btnPin){
-  Serial.print("btn @pin  ");
-  Serial.print(btnPin);
-  Serial.print(" is checked: ");
-  Serial.println(digitalRead(btnPin) == LOW? "pressed" : "nope");
-  return digitalRead(btnPin) == LOW;
+bool isPressed(int  btnPin){
+  bool read = digitalRead(btnPin) == LOW;
+  if(read){
+    Serial.print("BTN: ");
+    Serial.print(btnPin);
+    Serial.println(" is pressed");
+  }
+  return read;
 }
 
 
@@ -40,8 +43,6 @@ void setup(){
   pinMode(BTN_2, INPUT_PULLUP);
   pinMode(BTN_3, INPUT_PULLUP);
   pinMode(BTN_4, INPUT_PULLUP);
-
-  Serial.begin(9600);
 }
 
 void loop(){
@@ -51,6 +52,7 @@ void loop(){
   // Normal
   else if(isPressed(BTN_1)){
     //warn
+   //delay(1500);
     if(isPressed(BTN_2) == false)
       status = WARNING;
     else
@@ -90,16 +92,17 @@ void loop(){
     // on green + red
     case EMERGENCY:
       digitalWrite(R_LED, HIGH);
+      digitalWrite(R_LED, LOW);
       digitalWrite(Y_LED, LOW);
-      digitalWrite(G_LED, HIGH);
+      digitalWrite(G_LED, LOW);
       break;
     // only red
     case OFF:
     default:
-      digitalWrite(R_LED, HIGH);
+      digitalWrite(R_LED, LOW);
       digitalWrite(Y_LED, LOW);
       digitalWrite(G_LED, LOW);
   }
 
-  delay(100);
+  delay(LED_DELAY);
 }
