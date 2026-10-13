@@ -11,9 +11,7 @@ void setup(){
 void loop(){
   if(digitalRead(BTN) == HIGH){
     digitalWrite(LED, HIGH);
-  }else{
-    digitalWrite(LED,LOW);
   }
-
-  delay(100);
+  delay(500);
+  digitalWrite(LED, LOW);
 }
