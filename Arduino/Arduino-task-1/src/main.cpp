@@ -9,43 +9,98 @@
 #define BTN_3 8
 #define BTN_4 9
 
-enum Status { OFF, ACCESS, WARNING, EMERGENCY };
 
-bool isPressed(int pin) {
-  return digitalRead(pin) == LOW;
+enum Status {
+  ACCESS,
+  ALT,
+  WARNING,
+  EMERGENCY,
+  OFF,
+};
+
+bool isPressed(int btnPin){
+  Serial.print("btn @pin  ");
+  Serial.print(btnPin);
+  Serial.print(" is checked: ");
+  Serial.println(digitalRead(btnPin) == LOW? "pressed" : "nope");
+  return digitalRead(btnPin) == LOW;
 }
 
-void setLeds(bool r, bool y, bool g) {
-  digitalWrite(R_LED, r);
-  digitalWrite(Y_LED, y);
-  digitalWrite(G_LED, g);
-}
 
-void setup() {
+Status status = OFF;
+
+void setup(){
+  //setting the I/O signal to output
   pinMode(R_LED, OUTPUT);
   pinMode(Y_LED, OUTPUT);
   pinMode(G_LED, OUTPUT);
+
+  //PULLUP for buttons
   pinMode(BTN_1, INPUT_PULLUP);
   pinMode(BTN_2, INPUT_PULLUP);
   pinMode(BTN_3, INPUT_PULLUP);
   pinMode(BTN_4, INPUT_PULLUP);
+
+  Serial.begin(9600);
 }
 
-void loop() {
-  Status status = OFF;
+void loop(){
 
-  if (isPressed(BTN_4)) {
+  //emergency > Normal = ALT > Warn > OFF
+  if(isPressed(BTN_4))
     status = EMERGENCY;
-  } else if (isPressed(BTN_1) || isPressed(BTN_3)) {
-    status = isPressed(BTN_2) ? ACCESS : WARNING;
+  // Normal
+  else if(isPressed(BTN_1)){
+    //warn
+    if(isPressed(BTN_2) == false)
+      status = WARNING;
+    else
+      status = ACCESS;
+  }
+  // ALT
+  else if(isPressed(BTN_3)){
+    //warn
+    if(isPressed(BTN_2) == false)
+      status = WARNING;
+    else
+      status = ALT;
+  }
+  // OFF
+  else
+    status = OFF;
+
+  switch(status){
+    case ACCESS:
+      //on green
+      digitalWrite(R_LED, LOW);
+      digitalWrite(Y_LED, LOW);
+      digitalWrite(G_LED, HIGH);
+      break;
+    case ALT:
+    //on green + yellow
+    digitalWrite(R_LED, LOW);
+    digitalWrite(Y_LED, LOW);
+    digitalWrite(G_LED, HIGH);
+      break;
+    case WARNING:
+      //on yellow
+      digitalWrite(R_LED, LOW);
+      digitalWrite(Y_LED, HIGH);
+      digitalWrite(G_LED, LOW);
+      break;
+    // on green + red
+    case EMERGENCY:
+      digitalWrite(R_LED, LOW);
+      digitalWrite(Y_LED, LOW);
+      digitalWrite(G_LED, HIGH);
+      break;
+    // only red
+    case OFF:
+    default:
+      digitalWrite(R_LED, HIGH);
+      digitalWrite(Y_LED, LOW);
+      digitalWrite(G_LED, LOW);
   }
 
-  switch (status) {
-    case EMERGENCY: setLeds(HIGH, LOW,  LOW);  break;
-    case ACCESS:    setLeds(LOW,  LOW,  HIGH); break;
-    case WARNING:   setLeds(LOW,  HIGH, LOW);  break;
-    default:        setLeds(LOW,  LOW,  LOW);  break;
-  }
-
-  delay(20);  // small delay, enough for basic debouncing
+  delay(100);
 }
