@@ -9,9 +9,25 @@
 #define BTN_3 8
 #define BTN_4 9
 
-bool isPressed(int  btnPin){
+
+enum Status {
+  ACCESS,
+  ALT,
+  WARNING,
+  EMERGENCY,
+  OFF,
+};
+
+bool isPressed(int btnPin){
+  Serial.print("btn @pin  ");
+  Serial.print(btnPin);
+  Serial.print(" is checked: ");
+  Serial.println(digitalRead(btnPin) == LOW? "pressed" : "nope");
   return digitalRead(btnPin) == LOW;
 }
+
+
+Status status = OFF;
 
 void setup(){
   //setting the I/O signal to output
@@ -24,6 +40,8 @@ void setup(){
   pinMode(BTN_2, INPUT_PULLUP);
   pinMode(BTN_3, INPUT_PULLUP);
   pinMode(BTN_4, INPUT_PULLUP);
+
+  Serial.begin(9600);
 }
 void loop(){
 
