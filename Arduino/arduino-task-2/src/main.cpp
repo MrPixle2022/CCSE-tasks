@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #define LED 3
+#define BTN 4
 #define POT A0
 #define LDR A1
 
@@ -8,12 +9,13 @@
 #define DELAY_MAX 1000
 
 /*
-#define BTN 3
 */
 
 void setup() {
     pinMode(LED, OUTPUT);
     pinMode(POT, INPUT);
+    pinMode(LDR, INPUT);
+    pinMode(BTN, INPUT_PULLUP);
     Serial.begin(9600);
 }
 
@@ -40,6 +42,25 @@ void ldrMode(){
     analogWrite(LED, level);
     Serial.print("LED level: ");
     Serial.println(level);
+}
+
+void pushMode(){
+    bool clicked = digitalRead(BTN) == LOW ? true : false;
+    if(clicked)
+        digitalWrite(LED, HIGH);
+    else
+        digitalWrite(LED, LOW);
+}
+
+void toggleMode(){
+    digitalWrite(LED, LOW);
+    static bool state = false;
+    bool clicked = digitalRead(BTN) == LOW ? true : false;
+    if(clicked){
+        state = !state;
+        digitalWrite(LED, state ? HIGH : LOW);
+        delay(200);
+    }
 }
 
 void loop(){
