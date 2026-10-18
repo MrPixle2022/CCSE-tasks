@@ -5,11 +5,13 @@
 #define POT A0
 #define LDR A1
 
-#define DELAY_MIN 200
+#define DELAY_MIN 100
 #define DELAY_MAX 1000
 
-/*
-*/
+enum Mode { MODE_NONE, MODE_POT, MODE_LDR, MODE_PUSH, MODE_TOGGLE };
+
+Mode mode = MODE_NONE;
+bool toggleState = false;
 
 void setup() {
     pinMode(LED, OUTPUT);
@@ -17,70 +19,89 @@ void setup() {
     pinMode(LDR, INPUT);
     pinMode(BTN, INPUT_PULLUP);
     Serial.begin(9600);
+    Serial.println("Send 1 (pot), 2 (ldr), 3 (push), 4 (toggle)");
 }
 
-void potMode(){
+void potMode() {
     int read = analogRead(POT);
+    int delayTime = map(read, 0, 1023, DELAY_MIN, DELAY_MAX);
+
     Serial.print("Potentiometer value: ");
     Serial.println(read);
-
-    int delayTime = map(read, 0, 1023, DELAY_MIN, DELAY_MAX);
     Serial.print("Delay time: ");
     Serial.println(delayTime);
+
     digitalWrite(LED, HIGH);
-    delay(delayTime);
+    delay(delayTime/2);
     digitalWrite(LED, LOW);
-    delay(delayTime);
+    delay(delayTime/2);
 }
 
-void ldrMode(){
+void ldrMode() {
     int read = analogRead(LDR);
-    Serial.print("LDR value: ");
-    Serial.println(read);
-
     int level = map(read, 0, 1023, 0, 255);
     analogWrite(LED, level);
+
+    Serial.print("LDR value: ");
+    Serial.println(read);
     Serial.print("LED level: ");
     Serial.println(level);
+    delay(100);  // keeps the serial output readable
 }
 
-void pushMode(){
-    bool clicked = digitalRead(BTN) == LOW ? true : false;
-    if(clicked)
-        digitalWrite(LED, HIGH);
-    else
-        digitalWrite(LED, LOW);
+void pushMode() {
+    digitalWrite(LED, digitalRead(BTN) == LOW ? HIGH : LOW);
 }
 
-void toggleMode(){
-    digitalWrite(LED, LOW);
-    static bool state = false;
-    bool clicked = digitalRead(BTN) == LOW ? true : false;
-    if(clicked){
-        state = !state;
-        digitalWrite(LED, state ? HIGH : LOW);
-        delay(200);
+void toggleMode() {
+    static bool lastPressed = false;
+    bool pressed = (digitalRead(BTN) == LOW);
+
+    if (pressed && !lastPressed) {      // only act on the press itself
+        toggleState = !toggleState;
+        digitalWrite(LED, toggleState ? HIGH : LOW);
+        delay(50);                      // debounce
+    }
+    lastPressed = pressed;
+}
+
+void readCommand() {
+    if (Serial.available() <= 0) return;
+
+    char c = Serial.read();
+    Mode newMode = mode;
+
+    switch (c) {
+        case '1': newMode = MODE_POT;    break;
+        case '2': newMode = MODE_LDR;    break;
+        case '3': newMode = MODE_PUSH;   break;
+        case '4': newMode = MODE_TOGGLE; break;
+        case '\n':
+        case '\r':
+        case ' ':
+            return;                      // ignore whitespace, keep current mode
+        default:
+            Serial.println("Unknown command");
+            return;                      // invalid input never changes the mode
+    }
+
+    if (newMode != mode) {
+        mode = newMode;
+        digitalWrite(LED, LOW);          // clean slate when switching modes
+        toggleState = false;
+        Serial.print("Mode: ");
+        Serial.println(c);
     }
 }
 
-void loop(){
-    if(Serial.available() > 0){
-        char command = Serial.read();
-        switch(command){
-            case '1':
-                Serial.println("Command 1 received");
-                break;
-            case '2':
-                Serial.println("Command 2 received");
-                break;
-            case '3':
-                Serial.println("Command 3 received");
-                break;
-            default:
-                digitalWrite(LED, LOW);
-                Serial.println("Unknown command");
-        }
-    }
+void loop() {
+    readCommand();
 
-    delay(100);
+    switch (mode) {
+        case MODE_POT:    potMode();    break;
+        case MODE_LDR:    ldrMode();    break;
+        case MODE_PUSH:   pushMode();   break;
+        case MODE_TOGGLE: toggleMode(); break;
+        case MODE_NONE:   break;
+    }
 }
