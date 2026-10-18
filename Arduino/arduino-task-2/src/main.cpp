@@ -1,13 +1,13 @@
 #include <Arduino.h>
 
-#define LED 2
+#define LED 3
 #define POT A0
+#define LDR A1
 
 #define DELAY_MIN 200
 #define DELAY_MAX 1000
 
 /*
-#define LDR A1
 #define BTN 3
 */
 
@@ -23,10 +23,23 @@ void potMode(){
     Serial.println(read);
 
     int delayTime = map(read, 0, 1023, DELAY_MIN, DELAY_MAX);
+    Serial.print("Delay time: ");
+    Serial.println(delayTime);
     digitalWrite(LED, HIGH);
     delay(delayTime);
     digitalWrite(LED, LOW);
     delay(delayTime);
+}
+
+void ldrMode(){
+    int read = analogRead(LDR);
+    Serial.print("LDR value: ");
+    Serial.println(read);
+
+    int level = map(read, 0, 1023, 0, 255);
+    analogWrite(LED, level);
+    Serial.print("LED level: ");
+    Serial.println(level);
 }
 
 void loop(){
@@ -47,4 +60,6 @@ void loop(){
                 Serial.println("Unknown command");
         }
     }
+
+    delay(100);
 }
