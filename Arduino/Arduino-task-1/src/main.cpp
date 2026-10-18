@@ -9,6 +9,7 @@
 #define BTN_3 8
 #define BTN_4 9
 
+<<<<<<< HEAD
 enum Status { OFF, ACCESS, WARNING, EMERGENCY };
 
 bool isPressed(int pin) {
@@ -22,6 +23,30 @@ void setLeds(bool r, bool y, bool g) {
 }
 
 void setup() {
+=======
+
+enum Status {
+  ACCESS,
+  ALT,
+  WARNING,
+  EMERGENCY,
+  OFF,
+};
+
+bool isPressed(int btnPin){
+  Serial.print("btn @pin  ");
+  Serial.print(btnPin);
+  Serial.print(" is checked: ");
+  Serial.println(digitalRead(btnPin) == LOW? "pressed" : "nope");
+  return digitalRead(btnPin) == LOW;
+}
+
+
+Status status = OFF;
+
+void setup(){
+  //setting the I/O signal to output
+>>>>>>> a23dc25 (should work just fine)
   pinMode(R_LED, OUTPUT);
   pinMode(Y_LED, OUTPUT);
   pinMode(G_LED, OUTPUT);
@@ -29,6 +54,8 @@ void setup() {
   pinMode(BTN_2, INPUT_PULLUP);
   pinMode(BTN_3, INPUT_PULLUP);
   pinMode(BTN_4, INPUT_PULLUP);
+
+  Serial.begin(9600);
 }
 
 void loop() {
