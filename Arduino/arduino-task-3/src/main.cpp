@@ -4,11 +4,29 @@
 #define LDR A3
 #define TITLE_DELAY 1000
 
-/*LCD connection
+/*LCD connection (I2C)
 VCC ->  5V
 GND ->  GND
 SDA ->  A4
 SCL ->  A5
+--------
+LCD connection (no I2C)
+VSS ->  GND
+VDD ->  5V
+VO -> (a leg of a 10K potentiometer || GND)
+RW ->  GND
+E ->  11
+D0-D3 ->  leave
+D4 ->  5
+D5 ->  4
+D6 ->  3
+D7 ->  2
+
+use the following
+
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(RS, E, D4, D5, D6, D7);
 */
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
