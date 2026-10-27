@@ -14,6 +14,7 @@ LCD connection (no I2C)
 VSS ->  GND
 VDD ->  5V
 VO -> (a leg of a 10K potentiometer || GND)
+RS -> 12
 RW ->  GND
 E ->  11
 D0-D3 ->  leave
