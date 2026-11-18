@@ -94,12 +94,14 @@ lastly we have to wait, for that we use `waitpid`, it's a variant of `wait` but 
   - `0` wait for any child of the same group as the caller
   - `-1` wait for any child
 - `status` info about the exit of the child, don't read as regular int, use macros like:
-  - WIFEXITED(status) returns non-zero (true) if child exited properly
-  - WIFSIGNALED(status) returns non-zero (true) if child was killed by an un-handled signal like segmentation fault
+  - `WIFEXITED(status)` returns non-zero (true) if child exited properly
+  - `WIFSIGNALED(status)` returns non-zero (true) if child was killed by an un-handled signal like segmentation fault
 - `option` they can be combined using `|`
   - `WNOHANG` no freezing
   - `WUNTRACED` returns if child was paused or terminated
-  
+
+to get the child exit status use `WEXITSTATUS(status)`, it returns the exit code of the child process
+
 ---
 
 ## Sub-commands readings
@@ -155,3 +157,38 @@ man <section> <command>
 
 - use `-k` then a keyword to search through the description of all man pages for this keyword
 - use `-f` to get a one-line summary of the command
+
+---
+
+## How do multiple programs work together on one task
+
+there are many ways this can be done, primarily we have:
+
+### Pipes
+
+pipes are a common way to allow multiple programs to cooperate, by taking the output of 1 program and passing it as an input to the other, this is done via the `pip` sys call or `|` in terminal:
+
+```bash
+cat data.txt | grep "success"
+```
+
+### Shared memory
+
+the OS maps a specific region in the physical ram and loads it into the VRam, this space is used by multiple processes at once
+
+### Message Queues and sockets
+
+a message queue allows processes to send and receive blocks of data stored in queues managed by the kernel
+
+meanwhile sockets allows programs to communicate locally or across networks using read/write sockets streams
+
+### Signals
+
+signals are lightweight async notification sent from kernel/process to a process, telling that process an event has occurred
+
+### Synchronization
+
+cooperation requires coordination, so programs don't try to read/write data before they should, this is done at 2 level:
+
+- process level -> using `waitpid` to wait for a child process to finish
+- resource level -> using mutexes, semaphores to lock access to shared resources so only one process can access them at a time
