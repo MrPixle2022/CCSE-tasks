@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <wait.h>
+#include <errno.h>
 
 int main()
 {
@@ -15,29 +17,42 @@ int main()
     fgets(line, sizeof(line), stdin);
     sscanf(line, "%6s %d %d", command, &arg1, &arg2);
 
-    // flow-control
-    if (strcmp(command, "add") == 0)
+    // fork a child proccess
+    pid_t pid = fork();
+
+    // fork failed
+    if (pid < 0)
     {
-        printf("%d\n", arg1 + arg2);
+        perror("fork failed");
+        return EXIT_FAILURE;
     }
-    else if (strcmp(command, "sub") == 0)
+    // child process
+    else if (pid == 0)
     {
-        printf("%d\n", arg1 - arg2);
+        char arg1_str[32];
+        char arg2_str[32];
+        snprintf(arg1_str, sizeof(arg1_str), "%d", arg1);
+        snprintf(arg2_str, sizeof(arg2_str), "%d", arg2);
+
+        if (strcmp(command, "add") == 0)
+        {
+            execlp("./.build/add", "add", arg1_str, arg2_str, NULL);
+            perror("execlp failed");
+            exit(1);
+        }
+        else
+        {
+            fprintf(stderr, "Unknown command: %s\n", command);
+            return EXIT_FAILURE;
+        }
     }
-    else if (strcmp(command, "mul") == 0)
-    {
-        printf("%d\n", arg1 * arg2);
-    }
-    else if (strcmp(command, "div") == 0)
-    {
-        printf("%d\n", arg1 / arg2);
-    }
-    else if (strcmp(command, "negate") == 0)
-    {
-        printf("%d\n", -arg1);
-    }
+    // back to parent
     else
     {
-        printf("Invalid command\n");
+        int status;
+        waitpid(pid, &status, 0);
+        printf("Child process exited with status %d\n", WEXITSTATUS(status));
     }
+
+    return 0;
 }
