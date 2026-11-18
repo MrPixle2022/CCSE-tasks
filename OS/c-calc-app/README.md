@@ -109,3 +109,49 @@ ok, how does a sub command read the data, simple use `argc` and `argv`.
 the `main` function can take these two, `argc` is an int, holds how many arguments were passed to this app, `argv` is an array of strings, holding the options passed to the app, `argv[0]` is `arg0` which is almost alway the program name, so your own arguments start at index `1` if you pass any.
 a
 this is easy to understand the last part is converting string arguments back to numbers, this is easily done using `atoi` function, pass it the string, it returns the `int`
+
+---
+
+## Da man
+
+the `man` short for `manual` is used to read the `MANual` page -duh- of a specific command or function in c, use it as follows:
+
+```bash
+man <command>
+# example
+man ls
+```
+
+### Navigation
+
+navigate using:
+
+- `spacebar`, `pagedown` to scroll down one page
+- `b` or `pageup` to scroll up one page
+- `/` then a word to search for specific word, then press `n` to jump to the next match
+- `q` to quit
+
+### Sections
+
+linux divides documentation using numbered sections (1-9), this is helpful for whenever a function has the same name as a system call as in the case with `exit` as it is both a system call and a shell command.
+
+the sections are as follows, the number is the section number:
+
+1. executables (ls)
+2. system calls (fork)
+3. library calls (printf)
+4. special files (null)
+5. file formats and conventions (passwd)
+6. miscellaneous (ascii)
+7. admin commands (iptables)
+
+the section number goes before the command
+
+```bash
+man <section> <command>
+```
+
+### Helpful options
+
+- use `-k` then a keyword to search through the description of all man pages for this keyword
+- use `-f` to get a one-line summary of the command
