@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[])
 {
@@ -12,5 +13,6 @@ int main(int argc, char *argv[])
     int num1 = atoi(argv[1]);
 
     printf("%d\n", -num1);
+    printf("Process with pid: %d has completed negation., ppid: %d\n", getpid(), getppid());
     return EXIT_SUCCESS;
 }
