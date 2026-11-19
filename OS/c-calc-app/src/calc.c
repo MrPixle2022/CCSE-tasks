@@ -35,25 +35,25 @@ int main()
 
         if (strcmp(command, "add") == 0)
         {
-            execlp("./.build/add", "add", arg1_str, arg2_str, NULL);
+            execl("./.build/add", "add", arg1_str, arg2_str, NULL);
             perror("execlp failed");
             exit(1);
         }
         else if (strcmp(command, "sub") == 0)
         {
-            execlp("./.build/sub", "sub", arg1_str, arg2_str, NULL);
+            execl("./.build/sub", "sub", arg1_str, arg2_str, NULL);
             perror("execlp failed");
             exit(1);
         }
         else if (strcmp(command, "mul") == 0)
         {
-            execlp("./.build/mul", "mul", arg1_str, arg2_str, NULL);
+            execl("./.build/mul", "mul", arg1_str, arg2_str, NULL);
             perror("execlp failed");
             exit(1);
         }
         else if (strcmp(command, "negate") == 0)
         {
-            execlp("./.build/negate", "negate", arg1_str, NULL);
+            execl("./.build/negate", "negate", arg1_str, NULL);
             perror("execlp failed");
             exit(1);
         }
