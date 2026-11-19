@@ -21,7 +21,7 @@ int main()
         if (strcmp(command, "quit") == 0)
         {
             printf("Exiting the calculator.\n");
-            return 0;
+            exit(0);
         }
 
         // fork a child proccess
@@ -70,6 +70,20 @@ int main()
             {
                 fprintf(stderr, "Unknown command: %s\n", command);
                 continue;
+            }
+        }
+        else
+        {
+            int status;
+            waitpid(pid, &status, 0);
+
+            if (WIFEXITED(status))
+            {
+                printf("Child process with pid: %d has exited with status: %d\n", pid, WEXITSTATUS(status));
+            }
+            else if (WIFSIGNALED(status))
+            {
+                printf("Child process with pid: %d was terminated by signal: %d\n", pid, WTERMSIG(status));
             }
         }
     }
